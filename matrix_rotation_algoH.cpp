@@ -37,7 +37,7 @@ pii newPosition(int i, int j, int n, int m, int k){
         }
     }
     // left down corner
-    else if(i+j  == n && i > j && i >= n/2){
+    else if(i+j  == n && i > j && i >= n/2 && j <= m/2){
         k = k%(2*(abs(n - 2*i) + abs(m-2*j)));
         // right down
         if(2*i - n  == 0){
@@ -77,7 +77,7 @@ pii newPosition(int i, int j, int n, int m, int k){
         }
     }
     // right upper corner
-    else if(i + j == m && j > i && i <= n/2){
+    else if(i + j == m && j > i && i <= n/2 && j >= m/2){
         k = k%(2*(abs(n - 2*i) + abs(m-2*j)));
         // left upper
         if(n - 2*i == 0){
