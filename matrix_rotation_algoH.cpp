@@ -37,7 +37,7 @@ pii newPosition(int i, int j, int n, int m, int k){
         }
     }
     // left down corner
-    else if(i+j  == n && i > j){
+    else if(i+j  == n && i > j && i >= n/2){
         k = k%(2*(abs(n - 2*i) + abs(m-2*j)));
         // right down
         if(2*i - n  == 0){
@@ -77,7 +77,7 @@ pii newPosition(int i, int j, int n, int m, int k){
         }
     }
     // right upper corner
-    else if(i + j == m && j > i){
+    else if(i + j == m && j > i && i <= n/2){
         k = k%(2*(abs(n - 2*i) + abs(m-2*j)));
         // left upper
         if(n - 2*i == 0){
@@ -95,22 +95,13 @@ pii newPosition(int i, int j, int n, int m, int k){
             return newPosition(n - i, j, n, m, k - (n - 2*i));
         }
     }
-    cout << "first " << k << endl;
+    // cout << "first " << k << endl;
     int left = j;
     int right = m - j;
     int up = i;
     int down = n - i;
 
     int pos = min(left, min(right, min(up, down)));
-    cout << pos << endl;
-    if(pos == up){
-        if(k <= m - i - j){
-            return mp(i, j + k);
-        }
-        else{
-            return newPosition(i, m - i, n, m, k - (m - i - j));
-        }
-    }
     if(pos == left){
         if(k <= (i - j)){
             return mp(i - k, j);
@@ -135,7 +126,14 @@ pii newPosition(int i, int j, int n, int m, int k){
             return newPosition(n - m + j, j, n, m, k - (n - m + j - i));
         }
     }
-    
+    else if(pos == up){
+        if(k <= m - i - j){
+            return mp(i, j + k);
+        }
+        else{
+            return newPosition(i, m - i, n, m, k - (m - i - j));
+        }
+    }
 
     return mp(i, j);
 }
@@ -144,21 +142,19 @@ pii newPosition(int i, int j, int n, int m, int k){
 void matrixRotation(vector<vector<int>> matrix, int k) {
     int n = matrix.size();
     int m = matrix[0].size();
-    cout << k << endl;
+    // cout << endl;
     for (int i = 0; i < n; ++i){
         for(int j = 0; j < m; j++){
-            // pii p = newPosition(i, j, n-1, m-1, k);
+            pii p = newPosition(i, j, n-1, m-1, k);
             // cout << i << " " << j << " -> " << p.first << " " << p.second << endl;
-            // cout << matrix[p.first][p.second] << " ";
-            // cout << "| \t";
+            cout << matrix[p.first][p.second] << " ";
         }
         cout << endl;
     }
-    int i = 10, j = 24;
-    pii p = newPosition(i, j, n-1, m-1, 20);
-    cout << i << " " << j << " -> " << p.first << " " << p.second << endl;
+    // int i = 2, j = 2;
+    // pii p = newPosition(i, j, n-1, m-1, k);
+    // cout << i << " " << j << " -> " << p.first << " " << p.second << endl;
 }
-
 int main()
 {
     string mnr_temp;
